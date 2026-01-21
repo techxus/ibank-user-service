@@ -49,8 +49,7 @@ jobs:
 
       - name: Update env/dev values in GitOps repo
         run: |
-          cd ibank-minikube-gitops
-          FILE="env/local/user-service-values.yaml"
+          FILE="ibank-minikube-gitops/env/local/user-service-values.yaml"
           mkdir -p "$(dirname "$FILE")"
           cat > "$FILE" <<EOF
           image:
