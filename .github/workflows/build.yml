@@ -47,12 +47,14 @@ jobs:
           ref: main
           path: ibank-minikube-gitops
 
-      - name: Update env/dev values in GitOps repo
+      - name: Update image tag in GitOps values file
         run: |
           FILE="ibank-minikube-gitops/env/local/user-service-values.yaml"
-          mkdir -p "$(dirname "$FILE")"
-          cat > "$FILE" <<EOF
-          image:
-            repository: ${IMAGE_REPO}
-            tag: "${IMAGE_TAG}"
-          EOF
+
+          echo "Before:"
+          cat "$FILE"
+
+          sed -i.bak "s|^ *tag:.*|  tag: \"${IMAGE_TAG}\"|g" "$FILE"
+
+          echo "After:"
+          cat "$FILE"
