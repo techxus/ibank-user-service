@@ -49,7 +49,7 @@ jobs:
 
       - name: Update image tag in GitOps values file
         run: |
-          FILE="env/local/user-service-values.yaml"
+          FILE="ibank-minikube-gitops/env/local/user-service-values.yaml"
 
           echo "Before:"
           cat "$FILE"
@@ -58,3 +58,4 @@ jobs:
 
           echo "After:"
           cat "$FILE"
+      
