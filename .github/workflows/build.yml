@@ -1,5 +1,5 @@
 # This workflow will build user-service
-name: Build, Push Image and Trigger Deplyment
+name: Build, Push Image and Trigger Deployment
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build & push image (tag = SHA)
+      - name: Build & Push Docker Image (tag = SHA)
         run: |
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/user-service:${{ github.sha }}"
           docker build -t "$IMAGE" .
@@ -39,7 +39,7 @@ jobs:
           echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
           echo "IMAGE_REPO=${{ secrets.DOCKERHUB_USERNAME }}/user-service" >> $GITHUB_ENV
 
-      - name: Checkout ibank-minikube-gitops repo
+      - name: Checkout ibank-minikube-gitops
         uses: actions/checkout@v4
         with:
           repository: techxus/ibank-minikube-gitops
@@ -47,7 +47,7 @@ jobs:
           ref: main
           path: ibank-minikube-gitops
 
-      - name: Update image tag in GitOps values file
+      - name: Update Image Tag in ibank-minikube-gitops
         run: |
           cd ibank-minikube-gitops
           pwd
@@ -62,7 +62,7 @@ jobs:
           echo "After:"
           cat "$FILE"
 
-      - name: Commit & push GitOps change
+      - name: Commit & Push GitOps Change
         run: |
           cd ibank-minikube-gitops
           git config user.name "github-actions"
