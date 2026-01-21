@@ -49,6 +49,7 @@ jobs:
 
       - name: Update image tag in GitOps values file
         run: |
+          cd ibank-minikube-gitops
           pwd
           ls -l
           FILE="env/local/user-service-values.yaml"
