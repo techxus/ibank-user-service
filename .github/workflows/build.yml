@@ -62,7 +62,7 @@ jobs:
           echo "After:"
           cat "$FILE"
 
-      - name: Commit & Push GitOps Change
+      - name: Commit & Push GitOps Changes
         run: |
           cd ibank-minikube-gitops
           git config user.name "github-actions"
