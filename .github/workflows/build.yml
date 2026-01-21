@@ -69,5 +69,5 @@ jobs:
           git config user.email "github-actions@github.com"
           git add env/local/user-service-values.yaml
           git commit -m "user-service(local): deploy ${IMAGE_TAG}" || exit 0
-          git push
+          git push origin main
       
