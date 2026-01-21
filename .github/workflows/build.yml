@@ -44,11 +44,11 @@ jobs:
         with:
           repository: techxus/ibank-minikube-gitops
           token: ${{ secrets.GITOPS_REPO_PAT }}
-          path: gitops
+          path: ibank-minikube-gitops
 
       - name: Update env/dev values in GitOps repo
         run: |
-          FILE="gitops/env/local/user-service-values.yaml"
+          FILE="ibank-minikube-gitops/env/local/user-service-values.yaml"
           mkdir -p "$(dirname "$FILE")"
           cat > "$FILE" <<EOF
           image:
