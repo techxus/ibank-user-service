@@ -35,3 +35,23 @@ jobs:
         run: |
           IMAGE="${{ secrets.DOCKERHUB_USERNAME }}/user-service:${{ github.sha }}"
           docker build -t "$IMAGE" .
+          docker push "$IMAGE"
+          echo "IMAGE_TAG=${{ github.sha }}" >> $GITHUB_ENV
+          echo "IMAGE_REPO=${{ secrets.DOCKERHUB_USERNAME }}/user-service" >> $GITHUB_ENV
+
+      - name: Checkout ibank-minikube-gitops repo
+        uses: actions/checkout@v4
+        with:
+          repository: techxus/ibank-minikube-gitops
+          token: ${{ secrets.GITOPS_REPO_PAT }}
+          path: gitops
+
+      - name: Update env/dev values in GitOps repo
+        run: |
+          FILE="gitops/env/local/user-service-values.yaml"
+          mkdir -p "$(dirname "$FILE")"
+          cat > "$FILE" <<EOF
+          image:
+            repository: ${IMAGE_REPO}
+            tag: "${IMAGE_TAG}"
+          EOF
