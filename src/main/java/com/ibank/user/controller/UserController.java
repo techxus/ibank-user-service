@@ -17,16 +17,16 @@ public class UserController {
 
     private static final AtomicInteger counter = new AtomicInteger();
 
-    @GetMapping("/test")
-    public Map<String, Object> hello() {
+    @GetMapping("/server")
+    public Map<String, Object> getServerDetails() {
 
         int counterValue = counter.incrementAndGet();
         String correlationId = UUID.randomUUID().toString();
         MDC.put("correlationId", correlationId);
-        log.info("Processing GET:/api/v1/user...");
+        log.info("Processing GET:/api/v1/user/server...");
 
         return Map.of(
-                "message", "Processing GET:/api/v1/user...",
+                "message", "Processing GET:/api/v1/user/server...",
                 "timestamp", Instant.now().toString(),
                 "counter", counterValue
         );
