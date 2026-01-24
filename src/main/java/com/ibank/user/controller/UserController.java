@@ -25,7 +25,7 @@ public class UserController {
         log.info("Processing GET:/api/v1/user/server...");
 
         return Map.of(
-                "message", "Processing GET:/api/v1/user/server -> Templatized Whole Flow",
+                "message", "Brick 2.8 Milestone Reached !!!",
                 "timestamp", Instant.now().toString(),
                 "counter", counterValue
         );
