@@ -21,12 +21,11 @@ public class UserController {
     public Map<String, Object> getServerDetails() {
 
         int counterValue = counter.incrementAndGet();
-        String correlationId = UUID.randomUUID().toString();
-        MDC.put("correlationId", correlationId);
+        MDC.put("correlationId", UUID.randomUUID().toString());
         log.info("Processing GET:/api/v1/user/server...");
 
         return Map.of(
-                "message", "Processing GET:/api/v1/user/server...",
+                "message", "Processing GET:/api/v1/user/server -> Templatized Whole Flow",
                 "timestamp", Instant.now().toString(),
                 "counter", counterValue
         );
