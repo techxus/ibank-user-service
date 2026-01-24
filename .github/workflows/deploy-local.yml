@@ -2,7 +2,7 @@ name: user-service -> local (feature branches)
 
 on:
   push:
-    branches: ["master"]
+    branches: ["develop"]
 jobs:
   deploy:
     uses: techxus/ibank-gitops-template/.github/workflows/deploy.yml@master
