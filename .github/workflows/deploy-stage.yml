@@ -11,7 +11,7 @@ concurrency:
 
 jobs:
   deploy:
-    uses: techxus/ibank-gitops-template/.github/workflows/deploy.yml@master
+    uses: techxus/ibank-gitops-templates/.github/workflows/deploy.yml@master
     with:
       service_name: user-service
       docker_image: techxus/user-service
