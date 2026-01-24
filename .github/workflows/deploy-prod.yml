@@ -1,0 +1,21 @@
+name: user-service -> prod
+
+on:
+  push:
+    branches: ["master"]
+jobs:
+  deploy:
+    uses: techxus/ibank-gitops-template/.github/workflows/deploy.yml@master
+    with:
+      service_name: user-service
+      docker_image: techxus/user-service
+      gitops_repo: techxus/ibank-minikube-gitops
+      gitops_branch: master
+      values_file: env/prod/user-service-values.yaml
+      environment: prod
+      java_version: "17"
+      maven_args: "-DskipTests"
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      GITOPS_REPO_PAT: ${{ secrets.GITOPS_REPO_PAT }}
