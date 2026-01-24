@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - "release/**"
+
+concurrency:
+  group: user-service-stage
+  cancel-in-progress: true
+
 jobs:
   deploy:
     uses: techxus/ibank-gitops-template/.github/workflows/deploy.yml@master

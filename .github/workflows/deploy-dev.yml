@@ -3,6 +3,11 @@ name: user-service -> dev
 on:
   push:
     branches: ["develop"]
+
+concurrency:
+  group: user-service-dev
+  cancel-in-progress: true
+
 jobs:
   deploy:
     uses: techxus/ibank-gitops-template/.github/workflows/deploy.yml@master
