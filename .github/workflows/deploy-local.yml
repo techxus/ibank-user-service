@@ -2,7 +2,8 @@ name: user-service -> local (feature branch)
 
 on:
   push:
-    branches: ["develop"]
+    branches:
+      - "feature/**"
 
 concurrency:
   group: user-service-local
