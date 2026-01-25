@@ -25,7 +25,7 @@ public class UserController {
         log.info("Processing GET:/api/v1/user/server...");
 
         return Map.of(
-                "message", "Brick 2.8 Milestone Reached !!!",
+                "message", "Brick Pre-Tools Setup Milestone Reached !!!",
                 "timestamp", Instant.now().toString(),
                 "counter", counterValue
         );
