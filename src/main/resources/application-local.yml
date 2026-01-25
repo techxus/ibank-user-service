@@ -1,0 +1,38 @@
+server:
+  port: 9081
+
+spring:
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}?currentSchema=users
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    hikari:
+      schema: ${spring.jpa.properties.hibernate.default_schema}
+
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        default_schema: users
+        ddl-auto: validate # Hibernate will validate the schema against the current entity mappings.
+
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST}
+      port: ${SPRING_DATA_REDIS_PORT}
+      username: ${SPRING_DATA_REDIS_USERNAME:}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      ssl:
+        enabled: ${SPRING_DATA_REDIS_SSL:false}  # true for managed Redis with TLS (common in prod)
+        timeout: 2s
+        connect-timeout: 2s
+
+logging:
+  level:
+    ROOT: INFO
+    com.ibank.user: INFO
+    org.springframework.security: DEBUG
+    org.flywaydb: DEBUG
+    org.springframework.jdbc.core: DEBUG
+    org.springframework.jdbc.datasource: DEBUG
+    org.hibernate.SQL: DEBUG

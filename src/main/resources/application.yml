@@ -7,11 +7,51 @@ spring:
   application:
     name: user-service
 
+  config:
+    import: "optional:vault://"
+    cloud:
+      vault:
+        uri: ${SPRING_CLOUD_VAULT_URI:${VAULT_URI:http://127.0.0.1:8200}}
+        token: ${SPRING_CLOUD_VAULT_TOKEN:${VAULT_TOKEN:}}
+        kv:
+          enabled: true
+          backend: secret
+          default-context: shared
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: HikariPool-1  # Optional: Give a custom name to the connection pool
+      maximum-pool-size: 10    # Maximum number of connections in the pool (adjust as per your app load)
+      minimum-idle: 5         # Minimum number of idle connections in the pool
+      idle-timeout: 30000     # Maximum time that a connection can be idle before being removed from the pool
+      max-lifetime: 1800000   # Maximum lifetime of a connection in the pool (in ms)
+      connection-timeout: 30000  # Max time to wait for a connection from the pool before timing out
+      connection-test-query: SELECT 1  # Query to test connections, ensuring they are valid
+      leak-detection-threshold: 15000  # Log a warning if a connection is not returned in this time (in ms)
+      validation-timeout: 5000  # Timeout for connection validation before throwing an exception
+      auto-commit: false        # Whether to auto-commit transactions (set to false if you're using explicit transactions)
+
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          show_sql: false
+          format_sql=: true
+          default_schema: ${spring.jpa.properties.hibernate.default_schema}
+          ddl-auto: none
+    flyway:
+      enabled: true
+      baseline-on-migrate: true
+      locations: classpath:db/migration
+      default-schema: ${spring.jpa.properties.hibernate.default_schema}
+      schemas: ${spring.jpa.properties.hibernate.default_schema}
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info,prometheus
+        include: health,info,prometheus,flyway
   endpoint:
     health:
       probes:
@@ -35,6 +75,12 @@ management:
 
 logging:
   pattern:
-    level: "%5p [traceId=%X{trace_id:-}, spanId=%X{span_id:-}]"
+    # UnComment On Splunk: level: "%5p [traceId=%X{trace_id:-}, spanId=%X{span_id:-}]"
+  level:
+    ROOT: INFO
+    com.ibank.user: INFO
+    org.springframework.security: INFO
+
+
 
 
