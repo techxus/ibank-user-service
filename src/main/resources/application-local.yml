@@ -20,7 +20,7 @@ spring:
       username: ${SPRING_DATA_REDIS_USERNAME:}
       password: ${SPRING_DATA_REDIS_PASSWORD:}
       ssl:
-        enabled: ${SPRING_DATA_REDIS_SSL:false}  # true for managed Redis with TLS (common in prod)
+        enabled: ${SPRING_DATA_REDIS_SSL:false}  # true for managed Redis with TLS (common in prod).
         timeout: 2s
         connect-timeout: 2s
 
@@ -31,5 +31,4 @@ logging:
     org.springframework.security: DEBUG
     org.flywaydb: DEBUG
     org.springframework.jdbc.core: DEBUG
-    org.springframework.jdbc.datasource: DEBUG
     org.hibernate.SQL: DEBUG
